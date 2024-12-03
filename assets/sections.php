@@ -4,10 +4,10 @@ function gen_nav($level) : string {
     $nav = "";
     switch ($level) {
         case 0:
-            $tab = ["Witaj", "Posty", "Zarejestruj", "Zaloguj"];
+            $tab = ["Zaloguj", "Zarajestruj", "Posty", "Witaj"];
             break;
         case 1:
-            $tab = [];
+            $tab = [""];
             break;
         case 2:
             $tab = [];
@@ -16,7 +16,11 @@ function gen_nav($level) : string {
 
     foreach ($tab as $option) {
         $nav .= <<< END
-        
+            <nav>
+                <a href="#">
+                    $option
+                </a>
+            </nav>
         END;
     }
 
@@ -27,12 +31,20 @@ function menu($level) : string {
     $nav = gen_nav($level);
 
     $menu = <<< END
-    <header>
-        <section>LOGO</section>
-        <nav>
-            $nav
-        </nav>
-    </header>
+        <header>
+            <header>
+                <nav>
+                    <a href="#">
+                        <h1>
+                            NordLib
+                        </h1>
+                    </a>
+                </nav>
+            </header>
+            <section>
+                $nav
+            </section>
+        </header>
     END;
 
     return $menu;

@@ -1,0 +1,35 @@
+$main-color:#434c5e;
+$menu-color:#2e3440;
+$font-color:#eceff4;
+$footer-color:#0c1218;
+$a-color: #eceff4;
+$a-visited-color: $a-color;
+$a-hover-color: #88c0d0;
+$button-content-activate-color: #a3be8c;
+
+body {
+    background-color: $main-color;
+    color:$font-color;
+    header {
+        background-color: $menu-color;
+    }
+    footer {
+        background-color: $footer-color;
+    }
+    a {
+        text-decoration: none;
+        color: $a-color;
+        transition-duration: 0.5s;
+    }
+    
+    a:active {
+        color: $button-content-activate-color !important;
+    }
+
+    a:visited {
+        color: $a-visited-color;
+    }
+    a:hover {
+        color: $a-hover-color;
+    }
+}

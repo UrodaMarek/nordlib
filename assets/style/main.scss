@@ -1,4 +1,31 @@
+@import url(./font.css);
+@import url(./themes.css);
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Mono Space";
+    header {
+        height: 85px;
+        header {
+            float: left;
+            height: 100%;
+            align-content: center;
+        }
+        section {
+            height: 100%;
+            align-content: center;
+            nav {
+                text-align: center;
+                float: right;
+                padding: 5px;
+            }
+        }
+    }
+}
+
 footer {
-    background-color: black;
+    text-align: center;
+    clear: both;
     padding: 5px;
 }
