@@ -15,7 +15,7 @@
 
                 <br><br>
 
-                <form action="installer.php">
+                <form action="index.php">
                     <input type="submit" value="Sprubuj jeszcze raz">
                 </form>
             END;
@@ -44,15 +44,14 @@
         $dbr = conRoot($credentials);
 
         foreach($array_of_sql_instructions[1] as $sql_instruction) {
-            echo $sql_instruction .'<br>';
             $r  = $dbr -> query($sql_instruction);
-            echo $r.'<br><br>';
         }
         //? Dlaczego $r -> close() wykrzacza aplikacje?
         $dbr -> close();
         // TODO: try it
+        
         echo <<< END
-            Instalacja przebiegłapomyślnie<br><br>
+            Instalacja przebiegła pomyślnie<br><br>
             <a href="../index.php">
                 <button>
                     Powrót do strony głównej

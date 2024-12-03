@@ -7,7 +7,7 @@
 
         if ($param === FALSE) {
             $form = <<< END
-            <form method="post" action="./installer.php?installation=start">
+            <form method="post" action="./index.php?installation=start">
                 <label for="login">Login: </label>
                 <input type="text" name="login" id="login"><br><br>
                 <label for="password">Hasło</label>

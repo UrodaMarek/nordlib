@@ -10,7 +10,9 @@ require_once("./assets/sections.php");
 require_once("./assets/style.php");
 require_once("./functions/con.php");
 require_once("./functions/privileges.php");
+require_once("./functions/check.php");
 
+is_installed();
 
 $level = get_priv($session);
 

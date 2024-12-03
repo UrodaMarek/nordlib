@@ -2,28 +2,38 @@
 
 function set_con($level) {
   $db_server = 'localhost';
-  $db_name = 'NordLib';
 
   switch ($level) {
     case 0:
+      $db_name = 'NordLib';
       $db_user = 'anonymous_librarian';
       $db_password = 'secret0';
       break;
     case 1:
+      $db_name = 'NordLib';
       $db_user = 'user_librarian';
       $db_password = 'secret1';
       break;
     case 2:
+      $db_name = 'NordLib';
       $db_user = 'admin_librarian';
       $db_password = 'secret2';
       break;
     case 3:
+      $db_name = 'NordLib';
       $db_user = 'mr_register';
       $db_password = 'secret3';
       break;
     case 4:
+      $db_name = 'NordLib';
       $db_user = 'mr_statistic';
       $db_password = 'secret4';
+      break;
+    case 5:
+      //! User for checking is database installed
+      $db_name = '';
+      $db_user = 'root';
+      $db_password = '';
       break;
     default:
       die('Blad polaczenia z serwerem baz danych. Koniec aplikacji.');
@@ -45,7 +55,7 @@ function set_con($level) {
   }
 }
 
-function query_db($level = 0, $q) {
+function query_db($q, $level = 0) {
   $db = set_con($level);
   $result = $db->query($q);
   return $result;
