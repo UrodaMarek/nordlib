@@ -4,7 +4,7 @@ function gen_nav($level, $chosen_option) : string {
     $nav = "";
     switch ($level) {
         case 0:
-            $tab = ["Zaloguj", "Zarajestruj", "Posty", "Witaj"];
+            $tab = ["Zaloguj", "Zarejestruj", "Posty", "Witaj"];
             break;
         case 1:
             $tab = [""];
@@ -82,7 +82,18 @@ function main_content($option) : string {
             break;
         case "1":
             $content = <<< END
-                Opcja 2
+                <article class="post">
+                    <section class="date">
+                        15:30<br>
+                        15/04/2024
+                    </section>
+                    <h2>Tytuł posta</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat porta elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam eu nisi aliquet, malesuada erat eget, volutpat orci. Nulla et turpis velit. Sed et imperdiet velit. Phasellus vulputate blandit ligula id pulvinar. Aenean accumsan id augue vel tempor. Nam neque sem, hendrerit non venenatis vitae, pellentesque a tortor. Suspendisse potenti. Nullam eget varius velit.
+                        Pellentesque vestibulum felis eget ipsum viverra, eget ornare dolor porta. Nullam velit felis, fermentum ac mi sit amet, consectetur convallis nibh. Sed blandit rutrum neque id molestie. Duis vitae augue mi. Donec porttitor mi scelerisque, dictum felis eu, egestas diam. Morbi lacinia nunc tortor, at dictum dolor rutrum vel. Donec nec lacus et est sodales porttitor non sed nisl. Integer cursus auctor sem, sit amet feugiat mauris feugiat et. Aliquam at eros quam.
+                    </p>
+                    <section class="subtitle">Administracja</section>
+                </article>
             END;
             break;
         case "2":

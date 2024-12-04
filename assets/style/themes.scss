@@ -10,6 +10,7 @@ $nord-color:#88c0d0;
 $lib-color:#a3be8c;
 $option-hover-color:#1d2329;
 $option-active-color:#12151a;
+$post-background-color:#4c566a;
 
 
 body {
@@ -55,4 +56,16 @@ body {
 }
 #lib {
     color:$lib-color;
+}
+
+main {
+    .post {
+        background-color: $post-background-color;
+        .date {
+            color: #ebcb8b !important;
+        }
+        .subtitle {
+            color: #d08770;
+        }
+    }
 }
