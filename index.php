@@ -14,13 +14,15 @@ require_once("./functions/check.php");
 
 is_installed();
 
+$option = (isset($_GET["option"])) ? $_GET["option"] : "0";
+
 $level = get_priv($session);
 
 $theme = get_theme($session);
 
-$menu = menu($level);
+$menu = menu($level, $option);
 
-$main = main_content();
+$main = main_content($option);
 
 $footer = footer();
 

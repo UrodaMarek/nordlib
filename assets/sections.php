@@ -1,6 +1,6 @@
 <?php
 
-function gen_nav($level) : string {
+function gen_nav($level, $chosen_option) : string {
     $nav = "";
     switch ($level) {
         case 0:
@@ -14,10 +14,23 @@ function gen_nav($level) : string {
             break;
     }
 
-    foreach ($tab as $option) {
+    for ($i = 0; $i < count($tab); $i++) {
+        $option = $tab[$i];
+        $j = count($tab) - $i - 1;
+        if ($chosen_option == "$j") {
+            $nav .= <<< END
+                <div></div>
+                <a href="index.php?option=$j" id="chosen">
+                    <nav>
+                        $option
+                    </nav>
+                </a>
+            END;
+            continue;
+        }
         $nav .= <<< END
             <div></div>
-            <a href="#">
+            <a href="index.php?option=$j">
                 <nav>
                     $option
                 </nav>
@@ -29,14 +42,14 @@ function gen_nav($level) : string {
     return $nav;
 }
 
-function menu($level) : string {
-    $nav = gen_nav($level);
+function menu($level, $option) : string {
+    $nav = gen_nav($level, $option);
 
     $menu = <<< END
         <header>
             <header>
                 <nav>
-                    <a href="#">
+                    <a href="./index.php?option=0">
                         <h1>
                             <span id="nord">Nord</span><span id="lib">Lib</span>
                         </h1>
@@ -52,14 +65,39 @@ function menu($level) : string {
     return $menu;
 }
 
-function main_content() : string {
+function main_content($option) : string {
     
-    
-    
-    $content = <<< END
-    
-    
-    END;
+    switch ($option) {
+        case "0":
+            $content = <<< END
+                <article>
+                    <h2>Witaj</h2>
+                    <p>
+                        Dziękujemy za zaufanie.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat porta elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam eu nisi aliquet, malesuada erat eget, volutpat orci. Nulla et turpis velit. Sed et imperdiet velit. Phasellus vulputate blandit ligula id pulvinar. Aenean accumsan id augue vel tempor. Nam neque sem, hendrerit non venenatis vitae, pellentesque a tortor. Suspendisse potenti. Nullam eget varius velit.
+                        Pellentesque vestibulum felis eget ipsum viverra, eget ornare dolor porta. Nullam velit felis, fermentum ac mi sit amet, consectetur convallis nibh. Sed blandit rutrum neque id molestie. Duis vitae augue mi. Donec porttitor mi scelerisque, dictum felis eu, egestas diam. Morbi lacinia nunc tortor, at dictum dolor rutrum vel. Donec nec lacus et est sodales porttitor non sed nisl. Integer cursus auctor sem, sit amet feugiat mauris feugiat et. Aliquam at eros quam.
+                    </p>
+                <article>
+            END;
+            break;
+        case "1":
+            $content = <<< END
+                Opcja 2
+            END;
+            break;
+        case "2":
+            $content = <<< END
+                Opcja 3
+            END;
+            break;
+        case "3":
+            $content = <<< END
+                Opcja 4
+            END;
+            break;
+        default:
+            $content = "";
+    }
 
     return $content;
 }

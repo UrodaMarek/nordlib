@@ -41,6 +41,10 @@ body {
                 color: $a-hover-color;
                 background-color: $option-hover-color;
             }
+            #chosen {
+                color: $button-content-activate-color !important;
+                background-color: $option-active-color !important;
+            }
     }
     a {
         text-decoration: none;
