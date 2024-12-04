@@ -16,14 +16,16 @@ function gen_nav($level) : string {
 
     foreach ($tab as $option) {
         $nav .= <<< END
-            <nav>
-                <a href="#">
+            <div></div>
+            <a href="#">
+                <nav>
                     $option
-                </a>
-            </nav>
+                </nav>
+            </a>
         END;
     }
-
+    $nav = ltrim($nav);
+    $nav = ltrim($nav, "<div></div>");
     return $nav;
 }
 
@@ -36,7 +38,7 @@ function menu($level) : string {
                 <nav>
                     <a href="#">
                         <h1>
-                            NordLib
+                            <span id="nord">Nord</span><span id="lib">Lib</span>
                         </h1>
                     </a>
                 </nav>

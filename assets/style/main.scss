@@ -6,6 +6,9 @@ body {
     margin: 0;
     font-family: "Mono Space";
     header {
+        padding-left:10px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
         height: 85px;
         header {
             float: left;
@@ -13,14 +16,24 @@ body {
             align-content: center;
         }
         section {
+            padding-right: 5px;
             height: 100%;
             align-content: center;
-            nav {
+            div {
+                float: right;
+                height: 70%;
+                border-left: dotted 5px;
+            }
+            a {
                 text-align: center;
                 float: right;
-                padding: 5px;
+                margin: 7px;
+                padding: 10px;
             }
         }
+    }
+    main {
+        min-height: calc(100vh - 85px - 34px);
     }
 }
 

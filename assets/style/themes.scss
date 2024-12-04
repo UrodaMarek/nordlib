@@ -6,30 +6,49 @@ $a-color: #eceff4;
 $a-visited-color: $a-color;
 $a-hover-color: #88c0d0;
 $button-content-activate-color: #a3be8c;
+$nord-color:#88c0d0;
+$lib-color:#a3be8c;
+$option-hover-color:#1d2329;
+$option-active-color:#12151a;
+
 
 body {
     background-color: $main-color;
     color:$font-color;
     header {
         background-color: $menu-color;
+        
     }
     footer {
         background-color: $footer-color;
     }
+    section {
+            a {
+                color: $a-color;
+                transition-duration: 0.5s;
+                font-weight: bold;
+            }
+            
+            a:active {
+                color: $button-content-activate-color !important;
+                background-color: $option-active-color !important;
+            }
+        
+            a:visited {
+                color: $a-visited-color;
+            }
+            a:hover {
+                color: $a-hover-color;
+                background-color: $option-hover-color;
+            }
+    }
     a {
         text-decoration: none;
-        color: $a-color;
-        transition-duration: 0.5s;
     }
-    
-    a:active {
-        color: $button-content-activate-color !important;
-    }
-
-    a:visited {
-        color: $a-visited-color;
-    }
-    a:hover {
-        color: $a-hover-color;
-    }
+}
+#nord {
+    color:$nord-color;
+}
+#lib {
+    color:$lib-color;
 }
