@@ -11,6 +11,17 @@ $lib-color:#a3be8c;
 $option-hover-color:#1d2329;
 $option-active-color:#12151a;
 $post-background-color:#4c566a;
+$post-date-color:#ebcb8b;
+$post-subtitle-color:#d08770;
+$input-background-color:#2e3440;
+$input-color:$font-color;
+$submit-background-color: $input-background-color;
+$submit-background-active-color: #1d2329;
+$submit-active-color: #a3be8c;
+$submit-hover-color: #88c0d0;
+$submit-color:$font-color;
+$select-background-color:#2e344000;
+$select-background-hover-color:#1d2329;
 
 
 body {
@@ -26,8 +37,6 @@ body {
     section {
             a {
                 color: $a-color;
-                transition-duration: 0.5s;
-                font-weight: bold;
             }
             
             a:active {
@@ -62,10 +71,45 @@ main {
     .post {
         background-color: $post-background-color;
         .date {
-            color: #ebcb8b !important;
+            color: $post-date-color !important;
         }
         .subtitle {
-            color: #d08770;
+            color: $post-subtitle-color;
+        }
+    }
+    #form {
+        section {
+            background-color: $input-background-color;
+            input {
+                color:$input-color;
+            }
+        }
+        input[type="submit"] {
+            background-color: $submit-background-color;
+            color:$submit-color;
+            transition-duration: 0.5s;
+        }
+        input[type="submit"]:active {
+            color: $submit-active-color !important;
+            background-color: $submit-background-active-color !important;
+        }
+        input[type="submit"]:hover {
+            color: $submit-hover-color;
+            cursor: pointer;
+        }
+        select{
+            background-color: $select-background-color;
+            color: $input-color;
+        }
+        select:hover {
+            background-color: $select-background-hover-color;
+        }
+
+        #checkbox {
+            background-color: $main-color;
+        }
+        textarea {
+            color: $input-color;
         }
     }
 }

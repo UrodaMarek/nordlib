@@ -6,11 +6,13 @@ body {
     margin: 0;
     font-family: "Mono Space";
     header {
-        padding-left:10px;
+        box-shadow: 0 1px 10px 7px #000000ad;
+        padding-left: 10px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         height: 85px;
         header {
+            box-shadow: none;
             float: left;
             height: 100%;
             align-content: center;
@@ -25,6 +27,8 @@ body {
                 border-left: dotted 5px;
             }
             a {
+                transition-duration: 0.5s;
+                font-weight: bold;
                 text-align: center;
                 float: right;
                 margin: 7px;
@@ -33,7 +37,14 @@ body {
         }
     }
     main {
-        min-height: calc(100vh - 85px - 34px - 40px);
+        :first-child {
+            margin-bottom: 0 !important;
+        }
+        :last-child {
+            margin-bottom: 0 !important;
+        }
+        min-height: calc(100vh - 85px - 34px - 40px - 10px);
+        align-content: center;
         padding: 20px;
         article {
             margin-left: auto;
@@ -45,27 +56,101 @@ body {
             p {
                 text-align: justify;
             }
-            
         }
         .post {
-                box-shadow: 10px 15px 10px #000000ad;
-                border-radius: 20px;
-                margin-bottom: 40px;
-                padding: 20px;
-                p{
-                    padding: 15px;
+            box-shadow: 10px 15px 10px #000000ad;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            p {
+                padding: 15px;
+            }
+            .date {
+                text-align: right;
+            }
+            .subtitle {
+                text-align: right;
+            }
+        }
+        #form {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1000px;
+            align-content: center;
+            section {
+                box-shadow: 10px 10px 10px #000000ad;
+                display: flex;
+                width: 40% !important;
+                text-align: left;
+                margin: 20px auto;
+                padding: 15px;
+                width: fit-content;
+                border-radius: 30px;
+                label {
+                    width: fit-content;
                 }
-                .date{
-                    text-align: right;
+                input {
+                    flex-grow: 4;
+                    background-color: #00000000;
+                    border: none;
+                    font-family: "Mono Space";
                 }
-                .subtitle {
-                    text-align: right;
+                select {
+                    flex-grow: 4;
+                    border: none;
+                    font-family: "Mono Space";
+                    transition-duration: 0.5s;
                 }
+                input:focus {
+                    outline: none;
+                }
+                textarea {
+                    background-color: #00000000;
+                    border: none;
+                    width: 100%;
+                    max-width: 100%;
+                    min-width: 100%;
+                    min-height: 30px;
+                    font-family: "Mono Space";
+                }
+                textarea:focus {
+                    outline: none;
+                }
+            }
+            input[type="submit"] {
+                box-shadow: 10px 10px 10px #000000ad;
+                margin: 10px auto;
+                padding: 15px;
+                width: fit-content;
+                border-radius: 30px;
+                border: none;
+            }
+
+            input[type="submit"]:hover {
+                box-shadow: 8px 8px 10px #000000ad;
+            }
+
+            input[type="submit"]:active {
+                box-shadow: 4px 4px 10px #000000ad;
+            }
+
+            #checkbox {
+                box-shadow: none;
+                width: 100% !important;
+                text-align: justify;
+                display: block;
+            }
+            #textarea {
+                display: block;
+            }
         }
     }
 }
 
 footer {
+    box-shadow: 0 -4px 7px #000000ad;
+    margin-top: 10px;
     text-align: center;
     clear: both;
     padding: 5px;
