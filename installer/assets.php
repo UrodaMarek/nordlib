@@ -1,6 +1,9 @@
 <?php
     require_once("./functions.php");
     function wizard($param) : void {
+        $country_options = "";
+        $sex_options = "";
+
         if ($param[0][0] === "start") {
             install($param[1], $param[2], $param[3]);
         }

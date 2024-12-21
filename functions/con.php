@@ -60,9 +60,12 @@ function set_con($level)
   }
 }
 
-function query_db($q, $level = 0)
+function query_db($q, $level = 0, $return_connection = false)
 {
   $db = set_con($level);
   $result = $db->query($q);
+  if ($return_connection) {
+    return $db;
+  }
   return $result;
 }

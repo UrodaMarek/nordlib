@@ -571,16 +571,15 @@ CREATE USER 'mr_statistic'@'!localhost!' IDENTIFIED BY '!password4!';
 GRANT SELECT ON `Interface` TO 'anonymous_librarian'@'!localhost!';
 GRANT SELECT ON `Interface_privileges` TO 'anonymous_librarian'@'!localhost!';
 GRANT SELECT ON `Roles` TO 'anonymous_librarian'@'!localhost!';
+GRANT SELECT ON `Sex` TO 'anonymous_librarian'@'!localhost!';
+GRANT SELECT ON `Countries` TO 'anonymous_librarian'@'!localhost!';
 
-GRANT SELECT ON `Interface` TO 'user_librarian'@'!localhost!';
-GRANT SELECT ON `Interface_privileges` TO 'user_librarian'@'!localhost!';
-GRANT SELECT ON `Roles` TO 'user_librarian'@'!localhost!';
-
-GRANT SELECT ON `Interface` TO 'admin_librarian'@'!localhost!';
-GRANT SELECT ON `Interface_privileges` TO 'admin_librarian'@'!localhost!';
-GRANT SELECT ON `Roles` TO 'admin_librarian'@'!localhost!';
-
-GRANT SELECT ON `Users` TO 'mr_register'@'!localhost!';
+GRANT SELECT, INSERT ON `Users` TO 'mr_register'@'!localhost!';
+GRANT SELECT, INSERT ON `Human` TO 'mr_register'@'!localhost!';
+GRANT INSERT ON `Personal_information` TO 'mr_register'@'!localhost!';
+GRANT SELECT ON `Interface` TO 'mr_register'@'!localhost!';
+GRANT SELECT ON `Interface_privileges` TO 'mr_register'@'!localhost!';
+GRANT SELECT ON `Roles` TO 'mr_register'@'!localhost!';
 
 -- +
 -- + BASIC DATA

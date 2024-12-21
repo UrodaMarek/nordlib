@@ -1,17 +1,39 @@
 <?php
+session_start();
 
+require_once("./functions/con.php");
 require_once("./assets/sections.php");
 require_once("./assets/style.php");
-require_once("./functions/con.php");
 require_once("./functions/check.php");
+require_once("./functions/actions.php");
 
 is_installed();
 
-session_start();
+$is_loged = is_loged();
 
-$is_loged = false;
-if (isset($_SESSION["login"]) && isset($_SESSION["password"])) {
-    $is_loged = check_user($login, $password);
+if (isset($_GET["action"])) {
+    switch ($_GET["action"]) {
+        case "send_message":
+            break;
+        case "delete_message":
+            break;
+        case "publish":
+            break;
+        case "change_visibilty":
+            break;
+        case "log_in":
+            if($is_loged === FALSE) {
+                log_in();
+            }
+            break;
+        case "register":
+            if($is_loged === FALSE) {
+                register();
+            }
+            break;
+        case "delete_user":
+            break;
+    }
 }
 
 $option = (isset($_GET["option"])) ? $_GET["option"] : false;

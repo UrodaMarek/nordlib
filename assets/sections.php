@@ -7,6 +7,15 @@ function gen_nav($is_loged, $chosen_option): string
     $hrefs = [];
     $count = 0;
     if ($is_loged) {
+        $username = $_SESSION['login'];
+        $password = $_SESSION['password'];
+        $q = "SELECT `Interface`.`name`, `Interface`.`id_name` FROM `Interface_privileges` JOIN `Interface` ON `Interface`.`id`=`Interface_privileges`.`interface_id` JOIN `Roles` ON `Roles`.`id`=`Interface_privileges`.`role_id` JOIN `Users` ON `Users`.`role_id`=`Interface_privileges`.`role_id` WHERE `Interface_privileges`.`show`=TRUE AND `Users`.`pass`=$password AND `Users`.`username`=$username ORDER BY `Interface_privileges`.`show_order` DESC;";
+        $result = query_db($q, 3);
+        while ($row = $result -> fetch_row()) {
+            $options[]= $row[0];
+            $hrefs[]= $row[1];
+            $count++;
+        }
 
     } else {
         $q = "SELECT `Interface`.`name`, `Interface`.`id_name` FROM `Interface_privileges` JOIN `Interface` ON `Interface`.`id`=`Interface_privileges`.`interface_id` JOIN `Roles` ON `Roles`.`id`=`Interface_privileges`.`role_id` WHERE `Interface_privileges`.`show`=TRUE AND `Roles`.`name`='anonymous' ORDER BY `Interface_privileges`.`show_order` DESC;";
@@ -80,7 +89,28 @@ function main_content($is_loged, $option): string
 
     if ($is_loged)
     {
-
+        $username = $_SESSION['login'];
+        $password = $_SESSION['password'];
+        if (check_user($username, $password)) {
+            if ($option === FALSE)
+            {
+                $q = "SELECT `Interface`.`id_name` FROM `Interface_privileges` JOIN `Interface` ON `Interface`.`id`=`Interface_privileges`.`interface_id` JOIN `Roles` ON `Roles`.`id`=`Interface_privileges`.`role_id` JOIN `Users` ON `Users`.`role_id`=`Interface_privileges`.`role_id` WHERE `Interface_privileges`.`show`=TRUE AND `Users`.`pass`=$password AND `Users`.`username`=$username ORDER BY `Interface_privileges`.`show_order` LIMIT 1;";
+                $result = query_db($q, 3);
+                $interfaces_array = $result -> fetch_row();
+                $option = $interfaces_array[0];
+                $flag = true;
+            }
+            else
+            {
+                $q = "SELECT `Interface_privileges`.`show` FROM `Interface_privileges` JOIN `Interface` ON `Interface`.`id`=`Interface_privileges`.`interface_id` JOIN `Roles` ON `Roles`.`id`=`Interface_privileges`.`role_id` JOIN `Users` ON `Users`.`role_id`=`Interface_privileges`.`role_id` WHERE `Interface`.`id_name`='$option' AND `Users`.`pass`=$password AND `Users`.`username`=$username;";
+                $result = query_db($q, 3);
+                $priv = $result -> fetch_row();
+                if ($priv[0] == true)
+                {
+                    $flag = true;
+                }
+            }
+        }
     }
     else
     {
@@ -136,18 +166,34 @@ function main_content($is_loged, $option): string
                 END;
                 break;
             case "register":
-                $countries = ["Polska", "Ukraina", "USA"];
-                $sexs = ["mężczyzna", "kobieta"];
+                $sex_options = "";
+                $country_options = "";
 
-                foreach ($countries as $country) {
-                    $country_options .= <<<END
-                        <option value="$country">$country</option>
+                $q = "SELECT `Sex`.`id`, `Sex`.`name` FROM `Sex`";
+
+                $result = query_db($q);
+
+                while ($row = $result -> fetch_row()) {
+                    $sex_value = $row[0];
+                    $sex = $row[1];
+                    $sex_options .= <<<END
+                        <option value="$sex_value">$sex</option>
                     END;
                 }
 
-                foreach ($sexs as $sex) {
-                    $sex_options .= <<<END
-                        <option value="$sex">$sex</option>
+                $sex_options .= <<<END
+                    <option value="" selected>?</option>
+                END;
+
+                $q = "SELECT `Countries`.`id`, `Countries`.`name` FROM `Countries`";
+
+                $result = query_db($q);
+
+                while ($row = $result -> fetch_row()) {
+                    $country_value = $row[0];
+                    $country = $row[1];
+                    $country_options .= <<<END
+                        <option value="$country_value">$country</option>
                     END;
                 }
 
@@ -155,15 +201,11 @@ function main_content($is_loged, $option): string
                     <option value="" selected>?</option>
                 END;
 
-                $sex_options .= <<<END
-                    <option value="" selected>?</option>
-                END;
-
 
                 $content = <<<END
                     <section id="form">
                         <h2>Rejestracja</h2>
-                        <form method="post" action="./index.php">
+                        <form method="post" action="./index.php?action=register">
                             <section>
                                 <label for="nick">Nick: </label>
                                 <input type="text" name="nick" id="nick" placeholder="Misiaty303">
@@ -220,7 +262,7 @@ function main_content($is_loged, $option): string
                                 <input type="checkbox" name="sure" id="sure">
                                 <label for="sure">
                                     Świadomie zgadzam się na przetwarzanie moich danych osobowych przez Administratora strony internetowej, 
-                                    bazy danych oraz serwera hostingowego. Twoimi administratorami są: ADMIN1, ADMIN2, ADMIN3
+                                    bazy danych oraz serwera hostingowego.
                                 </label>
                             </section>
                             <input type="submit" value="Zarejestruj się"/>
@@ -232,7 +274,7 @@ function main_content($is_loged, $option): string
                 $content = <<<END
                     <section id="form">
                         <h2>Logowanie</h2>
-                        <form method="post" action="./index.php">
+                        <form method="post" action="./index.php?action=log_in">
                             <section>
                                 <label for="login">Login: </label>
                                 <input type="text" name="login" id="login" placeholder="email@example.com / nick">
@@ -245,6 +287,26 @@ function main_content($is_loged, $option): string
                         </form>
                     </section>
                 END;
+                break;
+            case "main":
+                break;
+            case "messages":
+                break;
+            case "library":
+                break;
+            case "statistics":
+                break;
+            case "logs":
+                break;
+            case "posts_adm":
+                break;
+            case "users_adm":
+                break;
+            case "account":
+                break;
+            case "settings":
+                break;
+            case "profile":
                 break;
             default:
                 $content = "";
