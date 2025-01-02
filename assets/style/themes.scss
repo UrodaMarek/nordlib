@@ -20,9 +20,57 @@ $submit-background-active-color: #1d2329;
 $submit-active-color: #a3be8c;
 $submit-hover-color: #88c0d0;
 $submit-color:$font-color;
+$button-background-color: $input-background-color;
+$button-background-active-color: #1d2329;
+$button-active-color: #a3be8c;
+$button-hover-color: #88c0d0;
+$button-color:$font-color;
 $select-background-color:#2e344000;
 $select-background-hover-color:#1d2329;
-
+$search_bar-background-color:$input-background-color;
+$search_bar-color:$input-color;
+$search_bar-submit-background-color:$submit-background-color;
+$search_bar-submit-color:$submit-color;
+$search_bar-submit-background-active-color:$submit-background-active-color;
+$search_bar-submit-active-color:$submit-active-color;
+$search_bar-submit-hover-color:$submit-hover-color;
+$users_messages-background-color:#3d414b;
+$messages_from_users-background-color:#436768;
+$messenger-background-color:#2e3440;
+$chat-button-backgrond-color:#2e3440;
+$chat-button-color: $font-color;
+$chat-button-hover-backgrond-color:$option-hover-color;
+$chat-button-hover-color:$submit-hover-color;
+$chat-button-active-backgrond-color:$option-active-color;
+$chat-button-active-color:$submit-active-color;
+$chat-chosen-button-background-color:$chat-button-active-backgrond-color;
+$chat-chosen-button-color:$chat-button-active-color;
+$chat-prompt-background-color:#1d2329;
+$chat-prompt-color:$font-color;
+$chat-prompt-button-backgrond-color:#1d2329;
+$chat-prompt-button-color: $font-color;
+$chat-prompt-button-hover-backgrond-color:#12151a;
+$chat-prompt-button-hover-color:$submit-hover-color;
+$chat-prompt-button-active-backgrond-color:black;
+$chat-prompt-button-active-color:$submit-active-color;
+$library-background-color:$messenger-background-color;
+$library-color:$font-color;
+$library-button-background-color:$chat-button-backgrond-color;
+$library-button-color:$chat-button-color;
+$library-button-active-background-color:$chat-button-active-backgrond-color;
+$library-button-active-color:$chat-button-active-color;
+$library-button-hover-background-color:$chat-button-hover-backgrond-color;
+$library-button-hover-color:$chat-button-hover-color;
+$library-chosen-button-background-color:$chat-chosen-button-background-color;
+$library-chosen-button-color:$chat-chosen-button-color;
+$library-border-color: #eceff4;
+$library-books-background-color:#434c5e;
+$profile-button-backgrond-color:#2e3440;
+$profile-button-color: $font-color;
+$profile-button-hover-backgrond-color:$option-hover-color;
+$profile-button-hover-color:$submit-hover-color;
+$profile-button-active-backgrond-color:$option-active-color;
+$profile-button-active-color:$submit-active-color;
 
 body {
     background-color: $main-color;
@@ -77,6 +125,225 @@ main {
             color: $post-subtitle-color;
         }
     }
+    #search_bar {
+        background-color: $search_bar-background-color;
+        input {
+            color: $search_bar-color;
+        }
+        button {
+            background-color: $search_bar-submit-background-color;
+            color:$search_bar-submit-color;
+            transition-duration: 0.5s;
+        }
+        button:active {
+            background-color: $search_bar-submit-background-active-color !important;
+            color: $search_bar-submit-active-color !important;
+            transition-duration: 0.5s;
+        }
+        button:hover {
+            color: $search_bar-submit-hover-color;
+            cursor: pointer;
+        }
+    }
+
+    .messenger {
+        background-color:$messenger-background-color;
+    }
+
+    #contacts {
+        nav {
+            button {
+                background-color: $chat-button-backgrond-color;
+                color:$chat-button-color;
+            }
+            button:hover {
+                background-color: $chat-button-hover-backgrond-color;
+                color: $chat-button-hover-color;
+                cursor:pointer;
+            }
+            button:active {
+                background-color: $chat-button-active-backgrond-color;
+                color: $chat-button-active-color;
+            }
+            #chosen_chat {
+                background-color: $chat-chosen-button-background-color;
+                color: $chat-chosen-button-color;
+            }
+        }
+        button {
+            background-color: $chat-button-backgrond-color;
+            color:$chat-button-color;
+        }
+        button:hover {
+            background-color: $chat-button-hover-backgrond-color;
+            color: $chat-button-hover-color;
+            cursor:pointer;
+        }
+        button:active {
+            background-color: $chat-button-active-backgrond-color;
+            color: $chat-button-active-color;
+        }
+    }
+
+    #chat {
+        #messages {
+            .response {
+                p {
+                    background-color: $messages_from_users-background-color;
+                }
+            }
+            .message {
+                p {
+                    background-color: $users_messages-background-color;
+                }
+            }
+        }
+        #prompt {
+            background-color: $chat-prompt-background-color;
+            form {
+                input {
+                    color: $chat-prompt-color;
+                }
+                button {
+                    background-color: $chat-prompt-button-backgrond-color;
+                    color:$chat-prompt-button-color;
+                }
+                button:hover {
+                    background-color: $chat-prompt-button-hover-backgrond-color;
+                    color: $chat-prompt-button-hover-color;
+                    cursor:pointer;
+                }
+                button:active {
+                    background-color: $chat-prompt-button-active-backgrond-color;
+                    color: $chat-prompt-button-active-color;
+                }
+            }
+        }
+    }
+
+    #information {
+        section {
+            ul {
+                li {
+                    button {
+                        background-color: $chat-button-backgrond-color;
+                        color:$chat-button-color;
+                    }
+                    button:hover {
+                        background-color: $chat-button-hover-backgrond-color;
+                        color: $chat-button-hover-color;
+                        cursor:pointer;
+                    }
+                    button:active {
+                        background-color: $chat-button-active-backgrond-color;
+                        color: $chat-button-active-color;
+                    }
+                }
+            }
+        }
+        button {
+            background-color: $chat-button-backgrond-color;
+            color:$chat-button-color;
+        }
+        button:hover {
+            background-color: $chat-button-hover-backgrond-color;
+            color: $chat-button-hover-color;
+            cursor:pointer;
+        }
+        button:active {
+            background-color: $chat-button-active-backgrond-color;
+            color: $chat-button-active-color;
+        }
+    }
+
+    #books {
+        background-color: $library-background-color;
+        color: $library-color;
+        header {
+            section {
+                background-color: #00000000 !important;
+                button {
+                    background-color: $library-button-background-color;
+                    color: $library-button-color;
+                }
+    
+                button:hover {
+                    background-color: $library-button-hover-background-color;
+                    color: $library-button-hover-color;
+                }
+    
+                button:active {
+                    background-color: $library-button-active-background-color;
+                    color: $library-button-active-color;
+                }
+            }
+        }
+        section {
+            background-color: $library-books-background-color;
+            table {
+                border-color: $library-border-color;
+                table {
+                    tr {
+                        td {
+                            button {
+                                background-color: $library-button-background-color;
+                                color: $library-button-color;
+                            }
+                
+                            button:hover {
+                                background-color: $library-button-hover-background-color;
+                                color: $library-button-hover-color;
+                            }
+                
+                            button:active {
+                                background-color: $library-button-active-background-color;
+                                color: $library-button-active-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #libraries {
+        background-color: $library-background-color;
+        color: $library-color;
+        nav {
+            #chosen_library {
+                background-color: $library-chosen-button-background-color;
+                color: $library-chosen-button-color;
+            }
+
+            button {
+            background-color: $library-button-background-color;
+            color: $library-button-color;
+            }
+
+            button:hover {
+                background-color: $library-button-hover-background-color;
+                color: $library-button-hover-color;
+            }
+
+            button:active {
+                background-color: $library-button-active-background-color;
+                color: $library-button-active-color;
+            }
+        }
+        button {
+            background-color: $library-button-background-color;
+            color: $library-button-color;
+        }
+        button:hover {
+            background-color: $library-button-hover-background-color;
+            color: $library-button-hover-color;
+        }
+        button:active {
+            background-color: $library-button-active-background-color;
+            color: $library-button-active-color;
+        }
+    }
+
     #form {
         section {
             background-color: $input-background-color;
@@ -110,6 +377,72 @@ main {
         }
         textarea {
             color: $input-color;
+        }
+
+        form {
+            fieldset {
+                section {
+                    background-color: $input-background-color;
+                    input {
+                        color:$input-color;
+                    }
+                }
+                select{
+                    background-color: $select-background-color;
+                    color: $input-color;
+                }
+                select:hover {
+                    background-color: $select-background-hover-color;
+                }
+                
+                #checkbox {
+                    background-color: $main-color;
+                }
+                textarea {
+                    color: $input-color;
+                }
+            }
+            input[type="submit"] {
+                background-color: $submit-background-color;
+                color:$submit-color;
+                transition-duration: 0.5s;
+            }
+            input[type="submit"]:active {
+                color: $submit-active-color !important;
+                background-color: $submit-background-active-color !important;
+            }
+            input[type="submit"]:hover {
+                color: $submit-hover-color;
+                cursor: pointer;
+            }
+            input[type="button"] {
+                background-color: $button-background-color;
+                color:$button-color;
+                transition-duration: 0.5s;
+            }
+            input[type="button"]:active {
+                color: $button-active-color !important;
+                background-color: $button-background-active-color !important;
+            }
+            input[type="button"]:hover {
+                color: $button-hover-color;
+                cursor: pointer;
+            }
+        }
+    }
+    #users_posts {
+        button {
+            background-color: $profile-button-backgrond-color;
+            color:$profile-button-color;
+        }
+        button:hover {
+            background-color: $profile-button-hover-backgrond-color;
+            color: $profile-button-hover-color;
+            cursor:pointer;
+        }
+        button:active {
+            background-color: $profile-button-active-backgrond-color;
+            color: $profile-button-active-color;
         }
     }
 }

@@ -14,7 +14,7 @@ function register()
     ) {
         $nick = "'".$_POST["nick"]."'";
         $email = "'".$_POST["email"]."'";
-        $password = "'".(hash_pass($_POST["password"]))."."; //TODO: validate it !!!!
+        $password = "'".(hash_pass($_POST["password"]))."'"; //TODO: validate it !!!!
         $name = "'".$_POST["name"]."'";
         $name2 = (!($_POST["name2"]=="")) ? "'".$_POST["name2"]."'" : "NULL";
         $name3 = (!($_POST["name3"]=="")) ? "'".$_POST["name3"]."'" : "NULL";
@@ -28,7 +28,7 @@ function register()
         $q = "SELECT `Users`.`id` FROM `Users` WHERE `username`=$nick OR `email`=$email";
         $result = query_db($q, 3);
 
-        if ($result -> num_rows < 0) {
+        if ($result -> num_rows == 0) {
             $q = "INSERT INTO `Personal_information` (`first_name`, `second_name`, `third_name`, `surname`, `sex_id`, `telephone`, `country_id`, `interested_in`) VALUES ($name, $name2, $name3, $surname, $sex, $tel, $country, $interesting)";
             $result = query_db($q, 3, true);
 
@@ -45,7 +45,7 @@ function register()
             $q = "INSERT INTO Users (`username`, `pass`, `email`, `role_id`, `human_id`, `reset`) VALUES ($nick, $password, $email, 2, $human_id, FALSE);";
 
             $result = query_db($q, 3);
-            $result -> close();
+            //$result -> close();
 
             $_SESSION["login"] = $nick;
             $_SESSION["password"] = $password;
@@ -77,7 +77,9 @@ function log_in()
 {
     if (
         isset($_POST["login"]) and
-        isset($_POST["password"])
+        isset($_POST["password"]) and
+        $_POST["login"] != "" and
+        $_POST["password"] != ""
     ) {
         $username = "'".$_POST["login"]."'";
         $password = "'".(hash_pass($_POST["password"]))."'";

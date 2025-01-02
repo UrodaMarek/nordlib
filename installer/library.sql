@@ -256,6 +256,7 @@ CREATE TABLE Books_privileges (
     `user_id` BIGINT NOT NULL,
     `read` BOOL NOT NULL,
     `share` BOOL NOT NULL,
+    `accepted` BOOL DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -277,10 +278,10 @@ CREATE TABLE Books (
 
 CREATE TABLE Books_authors (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `first_name` VARCHAR(15),
+    `first_name` VARCHAR(15) DEFAULT NULL,
     `second_name` VARCHAR(15) DEFAULT NULL,
     `third_name` VARCHAR(15) DEFAULT NULL,
-    `surname` VARCHAR(15),
+    `surname` VARCHAR(15) DEFAULT NULL,
     `sex_id` TINYINT DEFAULT NULL,
     `country_id` SMALLINT DEFAULT NULL,
     PRIMARY KEY (`id`)
@@ -602,7 +603,7 @@ INSERT INTO Interface (`name`, `id_name`)
         ('Główna', 'main'), 
         ('Wiadomości', 'messages'), 
         ('Biblioteka', 'library'), 
-        ('Konto', 'account'), 
+        ('Wyloguj', 'log_out'), 
         ('Ustawienia', 'settings'), 
         ('Profil', 'profile'), 
         ('Statystyki', 'statistics'), 
@@ -634,14 +635,14 @@ INSERT INTO Interface_privileges (`interface_id`, `role_id`, `show`, `show_order
         (7, 2, TRUE, 3),
         (7, 3, FALSE, 0),
         (8, 1, FALSE, 0),
-        (8, 2, TRUE, 4),
-        (8, 3, TRUE, 5),
+        (8, 2, TRUE, 6),
+        (8, 3, TRUE, 7),
         (9, 1, FALSE, 0),
-        (9, 2, TRUE, 41),
-        (9, 3, TRUE, 51),
+        (9, 2, TRUE, 4),
+        (9, 3, TRUE, 5),
         (10, 1, FALSE, 0),
-        (10, 2, TRUE, 42),
-        (10, 3, TRUE, 52),
+        (10, 2, TRUE, 5),
+        (10, 3, TRUE, 6),
         (11, 1, FALSE, 0),
         (11, 2, FALSE, 0),
         (11, 3, TRUE, 1),
