@@ -71,6 +71,25 @@ $profile-button-hover-backgrond-color:$option-hover-color;
 $profile-button-hover-color:$submit-hover-color;
 $profile-button-active-backgrond-color:$option-active-color;
 $profile-button-active-color:$submit-active-color;
+$statistics-background-color: #2e3440;
+$statistics-option-1-background-color:#bf616a;
+$statistics-option-2-background-color:#b48ead;
+$statistics-option-3-background-color:#d08770;
+$logs-background-color: #2e3440;
+$logs-button-background-color: #2e3440;
+$logs-button-color: $font-color;
+$logs-table-background-color: #434c5e;
+$logs-button-active-color:#a3be8c;
+$logs-button-background-active-color:$option-active-color;
+$logs-button-hover-color:#88c0d0;
+$logs-button-background-hover-color:$option-hover-color;
+$admin_posts-button-backgrond-color:#2e3440;
+$admin_posts-button-color: $font-color;
+$admin_posts-button-hover-backgrond-color:$option-hover-color;
+$admin_posts-button-hover-color:$submit-hover-color;
+$admin_posts-button-active-backgrond-color:$option-active-color;
+$admin_posts-button-active-color:$submit-active-color;
+$error-color: #bf616a;
 
 body {
     background-color: $main-color;
@@ -116,6 +135,9 @@ body {
 }
 
 main {
+    #error {
+        color:$error-color;
+    }
     .post {
         background-color: $post-background-color;
         .date {
@@ -430,6 +452,44 @@ main {
             }
         }
     }
+
+    #logs {
+        background-color: $logs-background-color;
+        button {
+            background-color: $logs-button-background-color;
+            color: $logs-button-color;
+        }
+        button:active {
+            background-color: $logs-button-background-active-color !important;
+            color: $logs-button-active-color !important;
+        }
+        button:hover {
+            background-color: $logs-button-background-hover-color;
+            color: $logs-button-hover-color;
+        }
+        header {
+            section {
+                button {
+                    background-color: $logs-button-background-color;
+                    color: $logs-button-color;
+                }
+                button:active {
+                    background-color: $logs-button-background-active-color !important;
+                    color: $logs-button-active-color !important;
+                }
+                button:hover {
+                    background-color: $logs-button-background-hover-color;
+                    color: $logs-button-hover-color;
+                }
+            }
+        }
+        #form {
+            table {
+                background-color: $logs-table-background-color;
+            }
+        }
+    }
+
     #users_posts {
         button {
             background-color: $profile-button-backgrond-color;
@@ -443,6 +503,59 @@ main {
         button:active {
             background-color: $profile-button-active-backgrond-color;
             color: $profile-button-active-color;
+        }
+    }
+
+    #statistics {
+        background-color: $statistics-background-color;
+        .figure {
+            section {
+                div:nth-of-type(1) {
+                    background-color: $statistics-option-1-background-color;
+                }
+                div:nth-of-type(2) {
+                    background-color: $statistics-option-2-background-color;
+                }
+                div:nth-of-type(3) {
+                    background-color: $statistics-option-3-background-color;
+                }
+            }
+        }
+    }
+
+    #admin_posts {
+        button {
+            background-color: $admin_posts-button-backgrond-color;
+            color:$admin_posts-button-color;
+        }
+        button:hover {
+            background-color: $admin_posts-button-hover-backgrond-color;
+            color: $admin_posts-button-hover-color;
+        }
+        button:active {
+            background-color: $admin_posts-button-active-backgrond-color;
+            color: $admin_posts-button-active-color;
+        }
+    }
+
+    #users_administration {
+        background-color: $logs-background-color;
+        button {
+            background-color: $logs-button-background-color;
+            color: $logs-button-color;
+        }
+        button:active {
+            background-color: $logs-button-background-active-color !important;
+            color: $logs-button-active-color !important;
+        }
+        button:hover {
+            background-color: $logs-button-background-hover-color;
+            color: $logs-button-hover-color;
+        }
+        #form {
+            table {
+                background-color: $logs-table-background-color;
+            }
         }
     }
 }

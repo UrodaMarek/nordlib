@@ -135,6 +135,16 @@ function main_content($is_loged, $option): string
     }
 
     if ($flag) {
+        if ($option != "register" and isset($_SESSION['register_error'])) 
+        {
+            unset($_SESSION['register_error']);
+        }
+
+        if ($option != "login" and isset($_SESSION['login_error'])) 
+        {
+            unset($_SESSION['login_error']);
+        }
+
         switch ($option)
         {
             case "welcome":
@@ -150,25 +160,38 @@ function main_content($is_loged, $option): string
                 END;
                 break;
             case "posts_an":
-                $content = <<<END
-                    <article class="post">
-                        <section class="date">
-                            15:30<br>
-                            15/04/2024
-                        </section>
-                        <h2>Tytuł posta</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat porta elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam eu nisi aliquet, malesuada erat eget, volutpat orci. Nulla et turpis velit. Sed et imperdiet velit. Phasellus vulputate blandit ligula id pulvinar. Aenean accumsan id augue vel tempor. Nam neque sem, hendrerit non venenatis vitae, pellentesque a tortor. Suspendisse potenti. Nullam eget varius velit.
-                            Pellentesque vestibulum felis eget ipsum viverra, eget ornare dolor porta. Nullam velit felis, fermentum ac mi sit amet, consectetur convallis nibh. Sed blandit rutrum neque id molestie. Duis vitae augue mi. Donec porttitor mi scelerisque, dictum felis eu, egestas diam. Morbi lacinia nunc tortor, at dictum dolor rutrum vel. Donec nec lacus et est sodales porttitor non sed nisl. Integer cursus auctor sem, sit amet feugiat mauris feugiat et. Aliquam at eros quam.
-                        </p>
-                        <section class="subtitle">Administracja</section>
-                    </article>
-                END;
+                $q = "SELECT `Posts`.`title` AS `title`, `Posts`.`data` AS `data`, DATE(`Posts`.`add_date`) AS `date`, TIME(`Posts`.`add_date`) AS `time`, `Authors`.`author_nick_name` AS `author` FROM `Posts` JOIN `Authors` ON `Authors`.`id`=`Posts`.`author_id` JOIN `Users` ON `Authors`.`user_id`=`Users`.`id` JOIN `Roles` ON `Roles`.`id`=`Users`.`role_id` JOIN `Post_watcher` ON `Posts`.`id`=`Post_watcher`.`post_id` WHERE `Roles`.`name`='administrator' AND `Post_watcher`.`user_id`=`Users`.`id`;";
+                $result = query_db($q);
+                while ($f_arr_row = $result -> fetch_assoc()) {
+                    $title = $f_arr_row['title'];
+                    $data = $f_arr_row['data'];
+                    $date = $f_arr_row['date'];
+                    $time = $f_arr_row['time'];
+                    $author = $f_arr_row['author'];
+                    $content .= <<<END
+                        <article class="post">
+                            <section class="date">
+                                $time<br>
+                                $date
+                            </section>
+                            <h2>$title</h2>
+                            <p>
+                                $data
+                            </p>
+                            <section class="subtitle">$author</section>
+                        </article>
+                    END;
+                }
+                
                 break;
             case "register":
+                $error = "";
                 $sex_options = "";
                 $country_options = "";
 
+                if(isset($_SESSION['register_error'])) {
+                    $error = $_SESSION['register_error'];
+                }
                 $q = "SELECT `Sex`.`id`, `Sex`.`name` FROM `Sex`";
 
                 $result = query_db($q);
@@ -205,6 +228,7 @@ function main_content($is_loged, $option): string
                 $content = <<<END
                     <section id="form">
                         <h2>Rejestracja</h2>
+                        <span id="error">$error</span>
                         <form method="post" action="./index.php?action=register">
                             <section>
                                 <label for="nick">Nick: </label>
@@ -271,9 +295,14 @@ function main_content($is_loged, $option): string
                 END;
                 break;
             case "login":
+                $error = "";
+                if(isset($_SESSION['login_error'])) {
+                    $error = $_SESSION['login_error'];
+                }
                 $content = <<<END
                     <section id="form">
                         <h2>Logowanie</h2>
+                        <span id="error">$error</span>
                         <form method="post" action="./index.php?action=log_in">
                             <section>
                                 <label for="login">Login: </label>
@@ -610,12 +639,230 @@ function main_content($is_loged, $option): string
                 END;
                 break;
             case "statistics":
+                $content = <<<END
+                    <section id="statistics">
+                        <header>
+                            <h2>    
+                                Statystyki
+                            </h2>
+                        </header>
+                        <section class="one-data">
+                        
+                            <header>
+                                <h3>    
+                                    Liczba administratorów:&nbsp;
+                                </h3>
+                            </header>
+                            <section>
+                                1
+                            </section>
+                        </section>
+                        <section  class="one-data">
+                            <header>
+                                <h3>    
+                                    Liczba zarejestrowanych urzytkowników:&nbsp;
+                                </h3>
+                            </header>
+                            <section>
+                                5
+                            </section>
+                        </section>
+                        <section class="figure">
+                            <header>
+                                <h3>    
+                                    Ilość osób o danej płci
+                                </h3>
+                            </header>
+                            <section>
+                                <div style="flex-grow: 2;">
+                                    <p>
+                                        Mężczyźni: 2
+                                    </p>
+                                </div>
+                                <div style="flex-grow: 4;">
+                                    <p>
+                                        Kobiety: 4
+                                    </p>
+                                </div>
+                            </section>
+                        </section>
+                        <section class="figure">
+                            <header>
+                                <h3>    
+                                    Ilość osób pochodzących z danego kraj
+                                </h3>
+                            </header>
+                            <section>
+                                <div style="flex-grow: 3;">
+                                    <p>
+                                        Polska: 3
+                                    </p>
+                                </div>
+                                <div style="flex-grow: 2;">
+                                    <p>
+                                        Ukraina: 2
+                                    </p>
+                                </div>
+                                <div style="flex-grow: 1">
+                                    <p>
+                                        USA: 1
+                                    </p>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                END;
                 break;
             case "logs":
+                $content = <<<END
+                    <section id="logs">
+                        <header>
+                            <h2>Logi</h2>
+                            <section>
+                                <button>Backup</button>
+                            </section>
+                        </header>
+                        <form action="" id="form" method="post">
+                            <table>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Typ</th>
+                                    <th>Kod</th>
+                                    <th>Komunikat</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>INFO</td>
+                                    <td>000</td>
+                                    <td>Zalogowano użytkownika o id: 892726049841148</td>
+                                    <td><input type="checkbox" value="1" id="id_log"></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>INFO</td>
+                                    <td>001</td>
+                                    <td>Utworzono uzrytkownika o id: 852756049851148</td>
+                                    <td><input type="checkbox" value="2" id="id_log"></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>WARN</td>
+                                    <td>006</td>
+                                    <td>Błędna pruba logowania do serwisu</td>
+                                    <td><input type="checkbox" value="3" id="id_log"></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>WARN</td>
+                                    <td>204</td>
+                                    <td>Próba uzyskania dostęp do zasobu bez uprawnień</td>
+                                    <td><input type="checkbox" value="4" id="id_log"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>EROR</td>
+                                    <td>333</td>
+                                    <td>Nieznany błąd</td>
+                                    <td><input type="checkbox" value="5" id="id_log"></td>
+                                </tr>
+                            </table>
+                            <button type="submit">
+                                Usuń wiele
+                            </button>
+                        </form>
+                    </section>
+                END;
                 break;
             case "posts_adm":
+                $content = <<<END
+                    <section id="admin_posts">
+                        <button>+</button>
+                        <article class="post">
+                            <section class="date">
+                                15:30<br>
+                                15/04/2024
+                            </section>
+                            <h2>Tytuł posta</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat porta elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam eu nisi aliquet, malesuada erat eget, volutpat orci. Nulla et turpis velit. Sed et imperdiet velit. Phasellus vulputate blandit ligula id pulvinar. Aenean accumsan id augue vel tempor. Nam neque sem, hendrerit non venenatis vitae, pellentesque a tortor. Suspendisse potenti. Nullam eget varius velit.
+                                Pellentesque vestibulum felis eget ipsum viverra, eget ornare dolor porta. Nullam velit felis, fermentum ac mi sit amet, consectetur convallis nibh. Sed blandit rutrum neque id molestie. Duis vitae augue mi. Donec porttitor mi scelerisque, dictum felis eu, egestas diam. Morbi lacinia nunc tortor, at dictum dolor rutrum vel. Donec nec lacus et est sodales porttitor non sed nisl. Integer cursus auctor sem, sit amet feugiat mauris feugiat et. Aliquam at eros quam.
+                            </p>
+                            <section class="subtitle">Administracja</section>
+                        </article>
+                    </section>
+                END;
                 break;
             case "users_adm":
+                $content = <<<END
+                    <section id="users_administration">
+                        <header>
+                            <h2>Użytkownicy</h2>
+                        </header>
+                        <form id="form" action="" method="post">
+                            <table>
+                                <tr>
+                                    <th>Login</th>
+                                    <th>E-mail</th>
+                                    <th>Typ konta</th>
+                                    <th>Restartuj</th>
+                                    <th>Usuń</th>
+                                </tr>
+                                <tr>
+                                    <td>mario</td>
+                                    <td>mario@gmail.com</td>
+                                    <td>
+                                        <select name="" id="account_type">
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" value="1" id="to_restart"></td>
+                                    <td><input type="checkbox" value="1" id="to_delete"></td>
+                                </tr>
+                                <tr>
+                                    <td>vladio</td>
+                                    <td>vlad2020@gmail.com</td>
+                                    <td>
+                                        <select name="" id="account_type">
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" value="2" id="to_restart"></td>
+                                    <td><input type="checkbox" value="2" id="to_delete"></td>
+                                </tr>
+                                <tr>
+                                    <td>bookybooky</td>
+                                    <td>bookworm@gmail.com</td>
+                                    <td>
+                                        <select name="" id="account_type">
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" value="3" id="to_restart"></td>
+                                    <td><input type="checkbox" value="3" id="to_delete"></td>
+                                </tr>
+                                <tr>
+                                    <td>ura</td>
+                                    <td>uraura@gmail.com</td>
+                                    <td>
+                                        <select name="" id="account_type">
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" value="4" id="to_restart"></td>
+                                    <td><input type="checkbox" value="4" id="to_delete"></td>
+                                </tr>
+                                <tr>
+                                    <td>mandragora</td>
+                                    <td>ursaminor@gmail.com</td>
+                                    <td>
+                                        <select name="" id="account_type">
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" value="5" id="to_restart"></td>
+                                    <td><input type="checkbox" value="5" id="to_delete"></td>
+                                </tr>
+                            </table>
+                            <button type="submit">Zapisz</button>
+                        </form>
+                    </section>
+                END;
                 break;
             case "log_out":
                 unset($_SESSION['password'], $_SESSION['login']);

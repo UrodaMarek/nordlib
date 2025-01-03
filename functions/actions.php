@@ -2,16 +2,24 @@
 function register()
 {
     if (
+        $_POST["nick"] != "" and
         isset($_POST["nick"]) and
+        $_POST["email"] != "" and
         isset($_POST["email"]) and
+        $_POST["name"] != "" and
         isset($_POST["name"]) and
+        $_POST["surname"] != "" and
         isset($_POST["surname"]) and
+        $_POST["password"] != "" and
         isset($_POST["password"]) and
+        $_POST["password2"] != "" and
         isset($_POST["password2"]) and
         $_POST["password"] == $_POST["password2"] and
         isset($_POST["sure"]) and
+        $_POST["sure"] != "" and
         $_POST["sure"] == "on"
     ) {
+
         $nick = "'".$_POST["nick"]."'";
         $email = "'".$_POST["email"]."'";
         $password = "'".(hash_pass($_POST["password"]))."'"; //TODO: validate it !!!!
@@ -29,6 +37,8 @@ function register()
         $result = query_db($q, 3);
 
         if ($result -> num_rows == 0) {
+            unset($_SESSION['register_error']);
+
             $q = "INSERT INTO `Personal_information` (`first_name`, `second_name`, `third_name`, `surname`, `sex_id`, `telephone`, `country_id`, `interested_in`) VALUES ($name, $name2, $name3, $surname, $sex, $tel, $country, $interesting)";
             $result = query_db($q, 3, true);
 
@@ -51,11 +61,16 @@ function register()
             $_SESSION["password"] = $password;
 
             header('Location: ./index.php');
+            exit();
         } else {
+            $_SESSION['register_error'] = "Użytkownik o podanej nazwie lub emailu już istnieje.";
             header('Location: ./index.php?option=register');
+            exit();
         }
     } else {
+        $_SESSION['register_error'] = 'Nie podano poprawnie wszystkich wymaganych danych.';
         header('Location: ./index.php?option=register');
+        exit();
     }
 }
 
@@ -86,15 +101,28 @@ function log_in()
         $q = "SELECT `Users`.`username`, `Users`.`pass` FROM `Users` WHERE `username`=$username OR `email`=$username AND `pass`=$password";
         $result = query_db($q, 3);
         if ($result -> num_rows == 1) {
+            unset($_SESSION['login_error']);
             $row = $result -> fetch_row();
             $_SESSION['login'] = "'".$row[0]."'";
             $_SESSION['password'] = "'".$row[1]."'";
             header('Location: ./index.php');
+            exit();
         } else {
+
+            if ($result -> num_rows == 0) {
+                $_SESSION['login_error'] = "Użytkownik o podanych danych nie istnieje.";
+            } else if ($result -> num_rows > 1) {
+                $_SESSION['login_error'] = "Znanych jest więcej użytkowników o podanych danych, zgłoś niezwłocznie autorowi oraz administratorowi aplikacji ową sytuacje.";
+            } else {
+                $_SESSION['login_error'] = "Nieznany błąd, zgłoś niezwłocznie autorowi oraz administratorowi aplikacji ową sytuacje.";
+            }
             header('Location: ./index.php?option=login');
+            exit();
         }
     } else {
+        $_SESSION['login_error'] = "Użytkownik o podanych danych nie istnieje.";
         header('Location: ./index.php?option=login');
+        exit();
     }
 }
 

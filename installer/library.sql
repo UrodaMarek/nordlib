@@ -159,6 +159,7 @@ CREATE TABLE Authors (
 
 CREATE TABLE Posts (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(20) NOT NULL,
     `data` VARCHAR(512) NOT NULL,
     `author_id` BIGINT NOT NULL,
     `add_date` DATETIME NULL,
@@ -574,6 +575,9 @@ GRANT SELECT ON `Interface_privileges` TO 'anonymous_librarian'@'!localhost!';
 GRANT SELECT ON `Roles` TO 'anonymous_librarian'@'!localhost!';
 GRANT SELECT ON `Sex` TO 'anonymous_librarian'@'!localhost!';
 GRANT SELECT ON `Countries` TO 'anonymous_librarian'@'!localhost!';
+GRANT SELECT ON `Posts` TO 'anonymous_librarian'@'!localhost!';
+GRANT SELECT ON `Authors` TO 'anonymous_librarian'@'!localhost!';
+GRANT SELECT ON `Users` TO 'anonymous_librarian'@'!localhost!';
 
 GRANT SELECT, INSERT ON `Users` TO 'mr_register'@'!localhost!';
 GRANT SELECT, INSERT ON `Human` TO 'mr_register'@'!localhost!';
@@ -639,10 +643,9 @@ INSERT INTO Interface_privileges (`interface_id`, `role_id`, `show`, `show_order
         (8, 3, TRUE, 7),
         (9, 1, FALSE, 0),
         (9, 2, TRUE, 4),
-        (9, 3, TRUE, 5),
         (10, 1, FALSE, 0),
         (10, 2, TRUE, 5),
-        (10, 3, TRUE, 6),
+        (10, 3, TRUE, 5),
         (11, 1, FALSE, 0),
         (11, 2, FALSE, 0),
         (11, 3, TRUE, 1),
